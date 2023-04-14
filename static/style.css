@@ -1,0 +1,30 @@
+body{
+    background-image: url(../static/imagens/fundo2.png);
+    border: 2px;
+    max-width: 60%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.topo{
+    display: inline;   
+}
+
+.links{
+    display: inline-block;
+    padding-left: 550px;
+}
+
+.logo{
+    margin-top: 15px;
+}
+
+.capa{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
+h4 {
+    text-align: center;
+}
