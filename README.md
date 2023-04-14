@@ -26,4 +26,3 @@ Caso tenha algum feedback, entre em contato!
 
 <a href = "mailto:juliagonzalezmoreira@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"></a>
 
-[⬆ Voltar ao topo](https://github.com/juliagonzalezmoreira/Desafio2/edit/main/README.md#-desafio-) <br>
