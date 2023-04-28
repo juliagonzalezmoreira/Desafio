@@ -1,6 +1,12 @@
 from flask import Flask, url_for, render_template
+""" from flask_mysqldb import MySQL """
 
 app = Flask(__name__)
+
+""" app.config['MYSQL_Host'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'ju070205'
+app.config['MYSQL_DB'] = 'contatos' """
 
 @app.route("/")
 def home():
