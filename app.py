@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template
+from flask import Flask, request, url_for, render_template, jsonify
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -39,7 +39,7 @@ def contato():
 def users():
     cur = mysql.connection.cursor()
 
-    users = cur.execute('SELECT * FROM contato')
+    users = cur.execute("SELECT * FROM contato")
     
     if users > 0:
         userDetails = cur.fetchall()
