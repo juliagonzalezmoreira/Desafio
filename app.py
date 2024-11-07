@@ -1,9 +1,9 @@
-from flask import Flask, request, url_for, render_template, jsonify
+from flask import Flask, redirect, request, url_for, render_template, jsonify
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-app.config['MYSQL_Host'] = 'localhost'
+app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'ju070205'
 app.config['MYSQL_DB'] = 'desafio3'
@@ -33,15 +33,43 @@ def contato():
         cur.close()
         
         return 'Sucesso!'
-    return render_template("contato.html")   
+    return render_template("contato.html")
 
 @app.route('/users')
 def users():
     cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM contato")
+    users = cur.fetchall()
+    cur.close()
 
-    users = cur.execute("SELECT * FROM contato")
+    return render_template("users.html", userDetails=users)
+
+@app.route('/edit_user/<int:id>', methods=['GET', 'POST'])
+def edit_user(id):
+    cur = mysql.connection.cursor()
     
-    if users > 0:
-        userDetails = cur.fetchall()
+    if request.method == 'POST':
+        email = request.form['email']
+        assunto = request.form['assunto']
+        descricao = request.form['descricao']
+        
+        cur.execute('UPDATE contato SET email=%s, assunto=%s, descricao=%s WHERE id=%s', (email, assunto, descricao, id))
+        mysql.connection.commit()
+        
+        cur.close()
+        return redirect(url_for('users'))
 
-        return render_template("users.html", userDetails=userDetails)
+    cur.execute('SELECT * FROM contato WHERE id = %s', (id,))
+    user = cur.fetchone()
+    cur.close()
+    
+    return render_template('edit_user.html', user=user)
+
+@app.route('/delete_user/<int:id>', methods=['GET'])
+def delete_user(id):
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM contato WHERE id = %s', (id,))
+    mysql.connection.commit()
+    cur.close()
+    
+    return redirect(url_for('users'))
